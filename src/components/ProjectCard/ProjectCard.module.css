@@ -1,0 +1,86 @@
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition), transform 0.15s ease-out, box-shadow var(--transition);
+  will-change: transform;
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: 0 0 30px rgba(255, 107, 43, 0.12);
+}
+
+.featured {
+  grid-column: span 2;
+}
+
+.viewer {
+  height: 220px;
+  background: var(--color-surface);
+}
+
+.featured .viewer {
+  height: 300px;
+}
+
+.info {
+  padding: 1.25rem;
+}
+
+.titleLink {
+  text-decoration: none;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+  transition: color var(--transition);
+}
+
+.titleLink:hover .title {
+  color: var(--color-accent);
+}
+
+.subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 768px) {
+  .featured {
+    grid-column: span 1;
+  }
+
+  .viewer {
+    height: 180px;
+  }
+
+  .featured .viewer {
+    height: 180px;
+  }
+}

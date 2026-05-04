@@ -1,0 +1,34 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.h,
+.v {
+  position: absolute;
+  background: var(--color-accent);
+  opacity: 0.6;
+}
+
+.h {
+  width: 16px;
+  height: 1px;
+  top: 0;
+  left: -8px;
+}
+
+.v {
+  width: 1px;
+  height: 16px;
+  top: -8px;
+  left: 0;
+}
