@@ -14,20 +14,37 @@ function PlaceholderModel() {
 
 export function STLViewer({ stlUrl, interactive = false }) {
   const [isInteracting, setIsInteracting] = useState(false)
+  const [isOverCanvas, setIsOverCanvas] = useState(false)
+
+  const handleWheel = (e) => {
+    // Se mouse não está sobre o Canvas, permite scroll da página
+    if (!isOverCanvas) {
+      e.stopPropagation()
+    }
+  }
 
   return (
     <div
-      className={`${styles.wrapper} ${isInteracting ? styles.interacting : ''}`}
+      className={`${styles.wrapper} ${isInteracting && isOverCanvas ? styles.interacting : ''}`}
       onMouseDown={() => interactive && setIsInteracting(true)}
       onMouseUp={() => interactive && setIsInteracting(false)}
-      onMouseLeave={() => interactive && setIsInteracting(false)}
+      onMouseLeave={() => {
+        interactive && setIsInteracting(false)
+        setIsOverCanvas(false)
+      }}
+      onWheel={handleWheel}
     >
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 50 }}
+        onPointerOver={() => setIsOverCanvas(true)}
+        onPointerOut={() => setIsOverCanvas(false)}
+      >
         <Stage environment="city" intensity={0.5}>
           <PlaceholderModel />
         </Stage>
         <OrbitControls
           enablePan={false}
+          enableZoom={true}
           enableDamping={true}
           dampingFactor={0.05}
           autoRotate={!isInteracting}

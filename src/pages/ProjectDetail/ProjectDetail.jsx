@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { STLViewer } from '../../components/STLViewer/STLViewer'
 import { Navbar } from '../../components/Navbar/Navbar'
+import { CustomCursor } from '../../components/CustomCursor/CustomCursor'
 import projects from '../../data/projects'
 import styles from './ProjectDetail.module.css'
 
@@ -11,13 +12,16 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <main className={styles.main}>
-        <Navbar />
-        <div className={styles.notFound}>
-          <h2>Projeto não encontrado</h2>
-          <Link to="/" className={styles.backLink}>← Voltar à galeria</Link>
-        </div>
-      </main>
+      <>
+        <CustomCursor />
+        <main className={styles.main}>
+          <Navbar />
+          <div className={styles.notFound}>
+            <h2>Projeto não encontrado</h2>
+            <Link to="/" className={styles.backLink}>← Voltar à galeria</Link>
+          </div>
+        </main>
+      </>
     )
   }
 
@@ -33,50 +37,53 @@ export default function ProjectDetail() {
   ]
 
   return (
-    <main className={styles.main}>
-      <Navbar />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className={styles.viewer}>
-          <STLViewer stlUrl={project.stlFile} interactive />
-        </div>
-
-        <div className={styles.content}>
-          <h1 className={styles.title}>{project.title}</h1>
-          <p className={styles.subtitle}>{project.subtitle}</p>
-
-          <div className={styles.specs}>
-            {specs.map((spec) => (
-              <div key={spec.label} className={styles.spec}>
-                <span className={styles.specLabel}>{spec.label}</span>
-                <span className={styles.specValue}>
-                  {spec.isColor ? (
-                    <span className={styles.colorSwatch}>
-                      <span className={styles.swatch} style={{ backgroundColor: spec.value }} />
-                      {spec.value}
-                    </span>
-                  ) : (
-                    spec.value
-                  )}
-                </span>
-              </div>
-            ))}
+    <>
+      <CustomCursor />
+      <main className={styles.main}>
+        <Navbar />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className={styles.viewer}>
+            <STLViewer stlUrl={project.stlFile} interactive />
           </div>
 
-          <p className={styles.description}>{project.description}</p>
+          <div className={styles.content}>
+            <h1 className={styles.title}>{project.title}</h1>
+            <p className={styles.subtitle}>{project.subtitle}</p>
 
-          <div className={styles.tags}>
-            {project.tags.map((tag) => (
-              <span key={tag} className={styles.tag}>#{tag}</span>
-            ))}
+            <div className={styles.specs}>
+              {specs.map((spec) => (
+                <div key={spec.label} className={styles.spec}>
+                  <span className={styles.specLabel}>{spec.label}</span>
+                  <span className={styles.specValue}>
+                    {spec.isColor ? (
+                      <span className={styles.colorSwatch}>
+                        <span className={styles.swatch} style={{ backgroundColor: spec.value }} />
+                        {spec.value}
+                      </span>
+                    ) : (
+                      spec.value
+                    )}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className={styles.description}>{project.description}</p>
+
+            <div className={styles.tags}>
+              {project.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>#{tag}</span>
+              ))}
+            </div>
+
+            <Link to="/" className={styles.backLink}>← Voltar à galeria</Link>
           </div>
-
-          <Link to="/" className={styles.backLink}>← Voltar à galeria</Link>
-        </div>
-      </motion.div>
-    </main>
+        </motion.div>
+      </main>
+    </>
   )
 }
